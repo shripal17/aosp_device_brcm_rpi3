@@ -81,5 +81,7 @@ else
 	rm -rf sdcard
 	kpartx -d $IMGNAME
 	sync
+        echo "Compressing img"
+	7z a $IMGNAME.7z $IMGNAME
 	echo "Done, created $IMGNAME!"
 fi
