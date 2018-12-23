@@ -1,5 +1,13 @@
-USE_OEM_TV_APP := true
-$(call inherit-product, device/google/atv/products/atv_base.mk)
+# USE_OEM_TV_APP := true
+# $(call inherit-product, device/google/atv/products/atv_base.mk)
+
+$(call inherit-product, $(SRC_TARGET_DIR)/product/generic_no_telephony.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/go_defaults.mk)
+$(call inherit-product, frameworks/native/build/tablet-7in-hdpi-1024-dalvik-heap.mk)
+# $(call inherit-product, vendor/opengapps/build/opengapps-packages.mk)
+
+GAPPS_FORCE_PACKAGE_OVERRIDES := true
+WITH_DEXPREOPT := true
 
 PRODUCT_NAME := rpi3
 PRODUCT_DEVICE := rpi3
@@ -7,10 +15,10 @@ PRODUCT_BRAND := Android
 PRODUCT_MODEL := Raspberry Pi 3
 PRODUCT_MANUFACTURER := brcm
 
-include frameworks/native/build/tablet-7in-hdpi-1024-dalvik-heap.mk
+#include frameworks/native/build/tablet-7in-hdpi-1024-dalvik-heap.mk
 
 PRODUCT_PROPERTY_OVERRIDES += \
-    debug.drm.mode.force=1280x720 \
+    # debug.drm.mode.force=1280x720 \
     ro.opengles.version=131072 \
     ro.sf.lcd_density=213 \
     ro.config.low_ram=true \
@@ -18,6 +26,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # application packages
 PRODUCT_PACKAGES += \
+    su \
     RpLauncher
 
 # system packages
@@ -75,6 +84,6 @@ PRODUCT_COPY_FILES := \
     $(PRODUCT_COPY_FILES)
 
 DEVICE_PACKAGE_OVERLAYS := device/brcm/rpi3/overlay
-PRODUCT_AAPT_PREF_CONFIG := tvdpi
-PRODUCT_CHARACTERISTICS := tv
+PRODUCT_AAPT_PREF_CONFIG := hdpi
+PRODUCT_CHARACTERISTICS := tablet
 PRODUCT_LOCALES := en_US,ko_KR,ja_JP,zh_CN,hi_IN,en_GB,de_DE,fr_FR,it_IT,ru_RU,es_ES,pt_PT,nl_BE,nl_NL
