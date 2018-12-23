@@ -1,8 +1,8 @@
 # USE_OEM_TV_APP := true
 # $(call inherit-product, device/google/atv/products/atv_base.mk)
 
-$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base.mk)
-# $(call inherit-product, $(SRC_TARGET_DIR)/product/go_defaults.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/generic_no_telephony.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/go_defaults.mk)
 $(call inherit-product, frameworks/native/build/tablet-7in-hdpi-1024-dalvik-heap.mk)
 # $(call inherit-product, vendor/opengapps/build/opengapps-packages.mk)
 
@@ -22,7 +22,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.opengles.version=131072 \
     ro.sf.lcd_density=213 \
     ro.config.low_ram=true \
-    ro.adb.secure=0 \
+    ro.adb.secure =0 \
     wifi.interface=wlan0
 
 # application packages
@@ -85,6 +85,6 @@ PRODUCT_COPY_FILES := \
     $(PRODUCT_COPY_FILES)
 
 DEVICE_PACKAGE_OVERLAYS := device/brcm/rpi3/overlay
-PRODUCT_AAPT_PREF_CONFIG := mdpi
+PRODUCT_AAPT_PREF_CONFIG := hdpi
 PRODUCT_CHARACTERISTICS := tablet
 PRODUCT_LOCALES := en_US,ko_KR,ja_JP,zh_CN,hi_IN,en_GB,de_DE,fr_FR,it_IT,ru_RU,es_ES,pt_PT,nl_BE,nl_NL
