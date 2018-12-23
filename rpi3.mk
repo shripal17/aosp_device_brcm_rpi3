@@ -22,6 +22,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.opengles.version=131072 \
     ro.sf.lcd_density=213 \
     ro.config.low_ram=true \
+    ro.adb.secure =0 \
     wifi.interface=wlan0
 
 # application packages
