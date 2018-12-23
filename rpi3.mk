@@ -18,7 +18,6 @@ PRODUCT_MANUFACTURER := brcm
 #include frameworks/native/build/tablet-7in-hdpi-1024-dalvik-heap.mk
 
 PRODUCT_PROPERTY_OVERRIDES += \
-    # debug.drm.mode.force=1280x720 \
     ro.opengles.version=131072 \
     ro.sf.lcd_density=213 \
     ro.config.low_ram=true \
