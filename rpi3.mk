@@ -3,10 +3,10 @@
 
 GAPPS_VARIANT := pico
 
-$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base.mk)
-$(call inherit-product, $(SRC_TARGET_DIR)/product/go_defaults.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/generic_no_telephony.mk)
+# $(call inherit-product, $(SRC_TARGET_DIR)/product/go_defaults.mk)
 $(call inherit-product, frameworks/native/build/tablet-7in-hdpi-1024-dalvik-heap.mk)
-$(call inherit-product, vendor/opengapps/build/opengapps-packages.mk)
+# $(call inherit-product, vendor/opengapps/build/opengapps-packages.mk)
 
 GAPPS_FORCE_PACKAGE_OVERRIDES := true
 WITH_DEXPREOPT := true
@@ -20,7 +20,6 @@ PRODUCT_MANUFACTURER := brcm
 # include frameworks/native/build/tablet-7in-hdpi-1024-dalvik-heap.mk
 
 PRODUCT_PROPERTY_OVERRIDES += \
-    debug.drm.mode.force=1280x720 \
     ro.opengles.version=131072 \
     ro.sf.lcd_density=213 \
     ro.adb.secure=0 \
@@ -34,6 +33,10 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES += ro.adb.secure=0
 
+# RenderScript HAL
+PRODUCT_PACKAGES += \
+    android.hardware.renderscript@1.0-impl
+
 # system packages
 PRODUCT_PACKAGES += \
     libGLES_mesa \
@@ -41,6 +44,7 @@ PRODUCT_PACKAGES += \
     hwcomposer.rpi3 \
     audio.primary.rpi3 \
     audio.usb.default \
+    wificond \
     wpa_supplicant \
     wpa_supplicant.conf
 

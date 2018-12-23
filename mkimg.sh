@@ -84,4 +84,7 @@ else
         echo "Compressing img"
 	7z a $IMGNAME.7z $IMGNAME
 	echo "Done, created $IMGNAME!"
+	echo "Uploading to GDrive"
+	gdrive upload $IMGNAME.7z
+	echo "Download & Flash!"
 fi
