@@ -3,7 +3,7 @@
 
 GAPPS_VARIANT := pico
 
-$(call inherit-product, $(SRC_TARGET_DIR)/product/generic_no_telephony.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base.mk)
 # $(call inherit-product, $(SRC_TARGET_DIR)/product/go_defaults.mk)
 $(call inherit-product, frameworks/native/build/tablet-7in-hdpi-1024-dalvik-heap.mk)
 # $(call inherit-product, vendor/opengapps/build/opengapps-packages.mk)

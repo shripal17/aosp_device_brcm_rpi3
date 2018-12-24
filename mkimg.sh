@@ -1,6 +1,6 @@
 #/bin/bash
 
-LINEAGEVERSION=aosp
+LINEAGEVERSION=aosp_7.1.2
 DATE=`date +%Y%m%d-%H%M%S`
 IMGNAME=$LINEAGEVERSION-$DATE-rpi3.img
 IMGSIZE=4
