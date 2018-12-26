@@ -6,10 +6,12 @@ GAPPS_VARIANT := pico
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base.mk)
 # $(call inherit-product, $(SRC_TARGET_DIR)/product/go_defaults.mk)
 $(call inherit-product, frameworks/native/build/tablet-7in-hdpi-1024-dalvik-heap.mk)
-# $(call inherit-product, vendor/opengapps/build/opengapps-packages.mk)
+$(call inherit-product, vendor/opengapps/build/opengapps-packages.mk)
 
 GAPPS_FORCE_PACKAGE_OVERRIDES := true
 WITH_DEXPREOPT := true
+GAPPS_EXCLUDED_PACKAGES := GooglePackageInstaller SetupWizard
+GAPPS_PRODUCT_PACKAGES := YouTube
 
 PRODUCT_NAME := rpi3
 PRODUCT_DEVICE := rpi3
@@ -20,18 +22,18 @@ PRODUCT_MANUFACTURER := brcm
 # include frameworks/native/build/tablet-7in-hdpi-1024-dalvik-heap.mk
 
 PRODUCT_PROPERTY_OVERRIDES += \
+    ro.sf.lcd_density=156 \
     ro.opengles.version=131072 \
-    ro.sf.lcd_density=213 \
     ro.adb.secure=0 \
+    ethernet.interface=eth0 \
     wifi.interface=wlan0
 
 # application packages
 PRODUCT_PACKAGES += \
-    Launcher2 \
+    Launcher3 \
     su \
+    Browser \
     Settings
-
-PRODUCT_SYSTEM_DEFAULT_PROPERTIES += ro.adb.secure=0
 
 # RenderScript HAL
 PRODUCT_PACKAGES += \
@@ -65,6 +67,8 @@ PRODUCT_COPY_FILES := \
     frameworks/native/data/etc/android.hardware.ethernet.xml:system/etc/permissions/android.hardware.ethernet.xml \
     frameworks/native/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml \
     frameworks/native/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
+    frameworks/native/data/etc/android.hardware.bluetooth.xml:system/etc/permissions/android.hardware.bluetooth.xml \
+    frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml \
     $(LOCAL_PATH)/manifest.xml:system/vendor/manifest.xml \
     $(LOCAL_PATH)/rpi3_core_hardware.xml:system/etc/permissions/rpi3_core_hardware.xml \
     $(LOCAL_PATH)/init.rpi3.rc:root/init.rpi3.rc \
@@ -72,10 +76,13 @@ PRODUCT_COPY_FILES := \
     $(LOCAL_PATH)/ueventd.rpi3.rc:root/ueventd.rpi3.rc \
     $(LOCAL_PATH)/fstab.rpi3:root/fstab.rpi3 \
     $(LOCAL_PATH)/Generic.kl:system/usr/keylayout/Generic.kl \
+    $(LOCAL_PATH)/firmware/brcm/BCM43430A1.hcd:root/lib/firmware/brcm/BCM43430A1.hcd \
     $(LOCAL_PATH)/firmware/brcm/brcmfmac43430-sdio.bin:root/lib/firmware/brcm/brcmfmac43430-sdio.bin \
     $(LOCAL_PATH)/firmware/brcm/brcmfmac43430-sdio.txt:root/lib/firmware/brcm/brcmfmac43430-sdio.txt \
     $(LOCAL_PATH)/firmware/brcm/brcmfmac43455-sdio.bin:root/lib/firmware/brcm/brcmfmac43455-sdio.bin \
     $(LOCAL_PATH)/firmware/brcm/brcmfmac43455-sdio.txt:root/lib/firmware/brcm/brcmfmac43455-sdio.txt \
+    $(LOCAL_PATH)/firmware/brcm/brcmfmac43455-sdio.clm_blob:root/lib/firmware/brcm/brcmfmac43455-sdio.clm_blob \
+    $(LOCAL_PATH)/bluetooth/bt_vendor.conf:system/etc/bluetooth/bt_vendor.conf \
     $(PRODUCT_COPY_FILES)
 
 # media configurations

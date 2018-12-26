@@ -29,7 +29,7 @@ else
 	echo p
 	echo 2
 	echo
-	echo +1024M
+	echo +1536M
 	echo n
 	echo p
 	echo 3
