@@ -76,6 +76,7 @@ PRODUCT_COPY_FILES := \
     $(LOCAL_PATH)/ueventd.rpi3.rc:root/ueventd.rpi3.rc \
     $(LOCAL_PATH)/fstab.rpi3:root/fstab.rpi3 \
     $(LOCAL_PATH)/Generic.kl:system/usr/keylayout/Generic.kl \
+    $(LOCAL_PATH)/wifi/bcmdhd.cal:root/lib/firmware/brcm/bcmdhd.cal \
     $(LOCAL_PATH)/firmware/brcm/BCM43430A1.hcd:root/lib/firmware/brcm/BCM43430A1.hcd \
     $(LOCAL_PATH)/firmware/brcm/BCM434345C0.hcd:root/lib/firmware/brcm/BCM4345C0.hcd \
     $(LOCAL_PATH)/firmware/brcm/brcmfmac43430-sdio.bin:root/lib/firmware/brcm/brcmfmac43430-sdio.bin \
@@ -105,3 +106,6 @@ DEVICE_PACKAGE_OVERLAYS := device/brcm/rpi3/overlay
 PRODUCT_AAPT_PREF_CONFIG := mdpi
 PRODUCT_CHARACTERISTICS := tablet
 PRODUCT_LOCALES := en_US,ko_KR,ja_JP,zh_CN,hi_IN,en_GB,de_DE,fr_FR,it_IT,ru_RU,es_ES,pt_PT,nl_BE,nl_NL
+
+# copy wlan firmware
+$(call inherit-product-if-exists, vendor/broadcom/wlan/bcmdhd/firmware/bcm43455/device-bcm.mk)
