@@ -22,7 +22,7 @@ PRODUCT_MANUFACTURER := brcm
 # include frameworks/native/build/tablet-7in-hdpi-1024-dalvik-heap.mk
 
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.sf.lcd_density=156 \
+    ro.sf.lcd_density=120 \
     ro.opengles.version=131072 \
     ro.adb.secure=0 \
     ethernet.interface=eth0 \
@@ -77,6 +77,7 @@ PRODUCT_COPY_FILES := \
     $(LOCAL_PATH)/fstab.rpi3:root/fstab.rpi3 \
     $(LOCAL_PATH)/Generic.kl:system/usr/keylayout/Generic.kl \
     $(LOCAL_PATH)/firmware/brcm/BCM43430A1.hcd:root/lib/firmware/brcm/BCM43430A1.hcd \
+    $(LOCAL_PATH)/firmware/brcm/BCM434345C0.hcd:root/lib/firmware/brcm/BCM4345C0.hcd \
     $(LOCAL_PATH)/firmware/brcm/brcmfmac43430-sdio.bin:root/lib/firmware/brcm/brcmfmac43430-sdio.bin \
     $(LOCAL_PATH)/firmware/brcm/brcmfmac43430-sdio.txt:root/lib/firmware/brcm/brcmfmac43430-sdio.txt \
     $(LOCAL_PATH)/firmware/brcm/brcmfmac43455-sdio.bin:root/lib/firmware/brcm/brcmfmac43455-sdio.bin \
