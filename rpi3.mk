@@ -5,8 +5,9 @@ GAPPS_VARIANT := pico
 
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base.mk)
 # $(call inherit-product, $(SRC_TARGET_DIR)/product/go_defaults.mk)
-$(call inherit-product, frameworks/native/build/tablet-7in-hdpi-1024-dalvik-heap.mk)
+# $(call inherit-product, frameworks/native/build/tablet-7in-hdpi-1024-dalvik-heap.mk)
 $(call inherit-product, vendor/opengapps/build/opengapps-packages.mk)
+$(call inherit-product, hardware/broadcom/wlan/bcmdhd/config/config-bcm.mk)
 
 GAPPS_FORCE_PACKAGE_OVERRIDES := true
 WITH_DEXPREOPT := true
@@ -19,10 +20,10 @@ PRODUCT_BRAND := TechOnTouch
 PRODUCT_MODEL := MediaOnTouch
 PRODUCT_MANUFACTURER := brcm
 
-# include frameworks/native/build/tablet-7in-hdpi-1024-dalvik-heap.mk
+include frameworks/native/build/tablet-7in-hdpi-1024-dalvik-heap.mk
 
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.sf.lcd_density=120 \
+    ro.sys.sdcardfs=true \
     ro.opengles.version=131072 \
     ro.adb.secure=0 \
     ethernet.interface=eth0 \
@@ -46,9 +47,15 @@ PRODUCT_PACKAGES += \
     hwcomposer.rpi3 \
     audio.primary.rpi3 \
     audio.usb.default \
+    p2p_supplicant.conf \
+    dhcpcd.conf \
+    android.hardware.wifi@1.0-service \
+    hostapd \
+    libwpa_client \
     wificond \
     wpa_supplicant \
-    wpa_supplicant.conf
+    wpa_supplicant.conf \
+    macaddrsetup
 
 # hardware/interfaces
 PRODUCT_PACKAGES += \
@@ -63,7 +70,6 @@ PRODUCT_PACKAGES += \
 
 # system configurations
 PRODUCT_COPY_FILES := \
-    hardware/broadcom/wlan/bcmdhd/config/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf \
     frameworks/native/data/etc/android.hardware.ethernet.xml:system/etc/permissions/android.hardware.ethernet.xml \
     frameworks/native/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml \
     frameworks/native/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
@@ -76,14 +82,15 @@ PRODUCT_COPY_FILES := \
     $(LOCAL_PATH)/ueventd.rpi3.rc:root/ueventd.rpi3.rc \
     $(LOCAL_PATH)/fstab.rpi3:root/fstab.rpi3 \
     $(LOCAL_PATH)/Generic.kl:system/usr/keylayout/Generic.kl \
-    $(LOCAL_PATH)/wifi/bcmdhd.cal:root/lib/firmware/brcm/bcmdhd.cal \
-    $(LOCAL_PATH)/firmware/brcm/BCM43430A1.hcd:root/lib/firmware/brcm/BCM43430A1.hcd \
-    $(LOCAL_PATH)/firmware/brcm/BCM434345C0.hcd:root/lib/firmware/brcm/BCM4345C0.hcd \
-    $(LOCAL_PATH)/firmware/brcm/brcmfmac43430-sdio.bin:root/lib/firmware/brcm/brcmfmac43430-sdio.bin \
-    $(LOCAL_PATH)/firmware/brcm/brcmfmac43430-sdio.txt:root/lib/firmware/brcm/brcmfmac43430-sdio.txt \
-    $(LOCAL_PATH)/firmware/brcm/brcmfmac43455-sdio.bin:root/lib/firmware/brcm/brcmfmac43455-sdio.bin \
-    $(LOCAL_PATH)/firmware/brcm/brcmfmac43455-sdio.txt:root/lib/firmware/brcm/brcmfmac43455-sdio.txt \
-    $(LOCAL_PATH)/firmware/brcm/brcmfmac43455-sdio.clm_blob:root/lib/firmware/brcm/brcmfmac43455-sdio.clm_blob \
+    $(LOCAL_PATH)/wifi/bcmdhd.cal:system/etc/wifi/bcmdhd.cal \
+    $(LOCAL_PATH)/firmware/brcm/BCM43455.hcd:system/etc/firmware/BCM43xx.hcd \
+    $(LOCAL_PATH)/firmware/brcm/brcmfmac43455-sdio.bin:system/etc/firmware/brcmfmac43455-sdio.bin \
+    $(LOCAL_PATH)/firmware/brcm/brcmfmac43455-sdio.txt:system/etc/firmware/brcmfmac43455-sdio.txt \
+    $(LOCAL_PATH)/firmware/brcm/brcmfmac43455-sdio.clm_blob:system/etc/firmware/brcmfmac43455-sdio.clm_blob \
+    $(LOCAL_PATH)/firmware/brcm/BCM43455.hcd:lib/firmware/BCM43xx.hcd \
+    $(LOCAL_PATH)/firmware/brcm/brcmfmac43455-sdio.bin:lib/firmware/brcmfmac43455-sdio.bin \
+    $(LOCAL_PATH)/firmware/brcm/brcmfmac43455-sdio.txt:lib/firmware/brcmfmac43455-sdio.txt \
+    $(LOCAL_PATH)/firmware/brcm/brcmfmac43455-sdio.clm_blob:lib/firmware/brcmfmac43455-sdio.clm_blob \
     $(LOCAL_PATH)/bluetooth/bt_vendor.conf:system/etc/bluetooth/bt_vendor.conf \
     $(PRODUCT_COPY_FILES)
 
@@ -106,6 +113,8 @@ DEVICE_PACKAGE_OVERLAYS := device/brcm/rpi3/overlay
 PRODUCT_AAPT_PREF_CONFIG := mdpi
 PRODUCT_CHARACTERISTICS := tablet
 PRODUCT_LOCALES := en_US,ko_KR,ja_JP,zh_CN,hi_IN,en_GB,de_DE,fr_FR,it_IT,ru_RU,es_ES,pt_PT,nl_BE,nl_NL
+
+TARGET_COPY_OUT_VENDOR := system/vendor
 
 # copy wlan firmware
 $(call inherit-product-if-exists, vendor/broadcom/wlan/bcmdhd/firmware/bcm43455/device-bcm.mk)

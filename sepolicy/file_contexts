@@ -2,5 +2,25 @@
 /dev/rfkill                     u:object_r:rfkill_device:s0
 /dev/ttyAMA0                    u:object_r:hci_attach_dev:s0
 /dev/block/zram0                u:object_r:swap_block_device:s0
+/dev/block/mmcblk0p4            u:object_r:userdata_block_device:s0
+/dev/block/mmcblk0p3            u:object_r:cache_block_device:s0
 
 /sys/class/rfkill/rfkill0/state u:object_r:sysfs_bluetooth_writable:s0
+
+# Bluetooth
+/sys/devices(/soc\.0|/soc)?/bluesleep\.(81|89)/rfkill/rfkill0/state            u:object_r:sysfs_bluetooth_writable:s0
+/sys/devices(/soc\.0|/soc)?/bcm43xx.([0-9])+/rfkill/rfkill[0-9](/.*)?          u:object_r:sysfs_bluetooth_writable:s0
+
+
+# Zram
+/sys/devices/virtual/block/zram0/mem_used_total                                          u:object_r:sysfs_zram:s0
+
+# firmware files
+#
+/firmware(/.*)?                                                     u:object_r:firmware_file:s0
+
+
+# WiFi MAC address
+/sys/devices/platform/bcmdhd_wlan/macaddr                                                     u:object_r:sysfs_addrsetup:s0
+/sys/devices/soc/soc\:bcmdhd_wlan/macaddr                                                     u:object_r:sysfs_addrsetup:s0
+/sys/devices(/soc\.0|/soc)?/bcmdhd_wlan.(90|115)/macaddr                                      u:object_r:sysfs_addrsetup:s0
